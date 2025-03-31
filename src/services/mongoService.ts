@@ -6,7 +6,7 @@ class MongoService {
   private client: MongoClient | null = null;
   private db: Db | null = null;
   private firCollection: Collection<FIR> | null = null;
-  private connectionString: string = "";
+  private connectionString: string = "mongodb+srv://gspatil2212:<0IbFmJX9QfnFWNru>@cluster0.gqxeump.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
   
   // Initialize MongoDB connection
   public async connect(): Promise<void> {
