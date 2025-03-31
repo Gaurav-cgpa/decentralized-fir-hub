@@ -6,7 +6,7 @@ class MongoService {
   private client: MongoClient | null = null;
   private db: Db | null = null;
   private firCollection: Collection<FIR> | null = null;
-  private connectionString: string = "mongodb+srv://your_username:your_password@your_cluster.mongodb.net/?retryWrites=true&w=majority";
+  private connectionString: string = "mongodb://localhost:27017";
   
   // Initialize MongoDB connection
   public async connect(): Promise<void> {
