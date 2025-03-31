@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { PlusCircle, List, Database, FileText, FileClock, User, Users, Clock } from 'lucide-react';
+import { PlusCircle, List, Database, FileText, FileClock, User, Users, Clock, BarChart } from 'lucide-react';
 
 const Dashboard = () => {
   const { user, isAuthenticated } = useAuth();
@@ -24,13 +24,15 @@ const Dashboard = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Dashboard</h1>
-        <Button 
-          onClick={() => navigate('/file-fir')}
-          className="bg-fir-blue-medium hover:bg-fir-blue-dark"
-        >
-          <PlusCircle className="h-4 w-4 mr-2" />
-          File New FIR
-        </Button>
+        {user.role === 'police' && (
+          <Button 
+            onClick={() => navigate('/file-fir')}
+            className="bg-fir-blue-medium hover:bg-fir-blue-dark"
+          >
+            <PlusCircle className="h-4 w-4 mr-2" />
+            File New FIR
+          </Button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -54,14 +56,16 @@ const Dashboard = () => {
             <CardTitle className="text-lg font-medium">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Button 
-              variant="outline" 
-              className="w-full justify-start"
-              onClick={() => navigate('/file-fir')}
-            >
-              <FileText className="h-4 w-4 mr-2" />
-              File New FIR
-            </Button>
+            {user.role === 'police' && (
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => navigate('/file-fir')}
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                File New FIR
+              </Button>
+            )}
             <Button 
               variant="outline" 
               className="w-full justify-start"
@@ -70,6 +74,16 @@ const Dashboard = () => {
               <List className="h-4 w-4 mr-2" />
               View All FIRs
             </Button>
+            {user.role === 'police' && (
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => navigate('/fir-analysis')}
+              >
+                <BarChart className="h-4 w-4 mr-2" />
+                FIR Analysis
+              </Button>
+            )}
           </CardContent>
         </Card>
 
@@ -183,16 +197,24 @@ const Dashboard = () => {
                   <Database className="h-4 w-4 mr-2" />
                   Verify FIR on Blockchain
                 </Button>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start"
+                  onClick={() => navigate('/fir-analysis')}
+                >
+                  <BarChart className="h-4 w-4 mr-2" />
+                  View FIR Analytics
+                </Button>
               </div>
             ) : (
               <div className="space-y-2">
                 <Button 
                   variant="outline" 
                   className="w-full justify-start"
-                  onClick={() => navigate('/file-fir')}
+                  onClick={() => navigate('/firs')}
                 >
                   <FileText className="h-4 w-4 mr-2" />
-                  File New FIR
+                  View FIRs
                 </Button>
                 <Button 
                   variant="outline" 

@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { blockchainService, FIR } from '@/services/blockchainService';
-import { MapPin, Calendar, User, FileCheck, Shield, ArrowLeft, Loader2, HelpCircle, Network, Award, Briefcase, Building, Users } from 'lucide-react';
+import { MapPin, Calendar, User, FileCheck, Shield, ArrowLeft, Loader2, HelpCircle, Network, Award, Briefcase, Building, Users, Image, Video, FileText } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useAuth } from '@/contexts/AuthContext';
 
 const FIRDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +16,7 @@ const FIRDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isVerifying, setIsVerifying] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchFIR = async () => {
@@ -238,6 +240,69 @@ const FIRDetail = () => {
               </div>
             </div>
           </div>
+          
+          {/* Evidence Section - Only visible to police */}
+          {user?.role === 'police' && fir.evidence && fir.evidence.length > 0 && (
+            <>
+              <Separator />
+              
+              <div>
+                <h3 className="text-lg font-medium mb-3 flex items-center">
+                  <Shield className="h-5 w-5 mr-2 text-fir-blue-medium" />
+                  Evidence (Police Only)
+                </h3>
+                <div className="space-y-4">
+                  {fir.evidence.map((item, index) => (
+                    <div key={index} className="px-4 py-3 bg-gray-50 rounded-md">
+                      <div className="flex items-center mb-2">
+                        {item.type === 'text' && <FileText className="h-4 w-4 mr-2 text-blue-500" />}
+                        {item.type === 'image' && <Image className="h-4 w-4 mr-2 text-green-500" />}
+                        {item.type === 'video' && <Video className="h-4 w-4 mr-2 text-purple-500" />}
+                        <p className="text-sm font-medium text-gray-600">
+                          {item.description}
+                        </p>
+                        <span className="ml-auto text-xs text-gray-500">
+                          {new Date(item.timestamp).toLocaleString()}
+                        </span>
+                      </div>
+                      
+                      {item.type === 'text' && (
+                        <div className="p-3 bg-white rounded border text-gray-700 whitespace-pre-line">
+                          {item.content}
+                        </div>
+                      )}
+                      
+                      {item.type === 'image' && (
+                        <div className="p-2 bg-white rounded border">
+                          <a href={item.content} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline block">
+                            <img 
+                              src={item.content} 
+                              alt={item.description} 
+                              className="max-h-48 max-w-full mx-auto object-contain"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = 'https://via.placeholder.com/400x300?text=Image+Not+Available';
+                              }}
+                            />
+                            <div className="text-center text-xs mt-2">Click to open original image</div>
+                          </a>
+                        </div>
+                      )}
+                      
+                      {item.type === 'video' && (
+                        <div className="p-2 bg-white rounded border">
+                          <a href={item.content} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline block text-center py-4">
+                            <Video className="h-10 w-10 mx-auto text-gray-400 mb-2" />
+                            <span>Click to view video evidence</span>
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
           
           <Separator />
           

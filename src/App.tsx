@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import FileFIR from "./pages/FileFIR";
 import ViewFIRs from "./pages/ViewFIRs";
 import FIRDetails from "./pages/FIRDetails";
+import FIRAnalysis from "./pages/FIRAnalysis";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/file-fir" element={<FileFIR />} />
               <Route path="/firs" element={<ViewFIRs />} />
               <Route path="/fir/:id" element={<FIRDetails />} />
+              <Route path="/fir-analysis" element={<FIRAnalysis />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
