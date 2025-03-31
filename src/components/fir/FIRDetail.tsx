@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { blockchainService, FIR } from '@/services/blockchainService';
-import { MapPin, Calendar, User, FileCheck, Shield, ArrowLeft, Loader2, HelpCircle, Network } from 'lucide-react';
+import { MapPin, Calendar, User, FileCheck, Shield, ArrowLeft, Loader2, HelpCircle, Network, Award, Briefcase, Building, Users } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const FIRDetail = () => {
@@ -162,56 +162,81 @@ const FIRDetail = () => {
         <CardContent className="space-y-6">
           <div>
             <h3 className="text-lg font-medium mb-2">Incident Details</h3>
-            <p className="text-gray-700 whitespace-pre-line">{fir.description}</p>
+            <div className="px-4 py-3 bg-gray-50 rounded-md">
+              <p className="text-gray-700 whitespace-pre-line">{fir.description}</p>
+              <div className="mt-3 pt-3 border-t border-gray-200">
+                <span className="text-sm font-medium text-gray-600">Nature of Offence:</span>
+                <Badge variant="outline" className="ml-2">{fir.natureOfOffence}</Badge>
+              </div>
+            </div>
           </div>
           
           <Separator />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-medium mb-2">Complainant Information</h3>
-              <div className="space-y-3">
-                <div className="flex items-start">
-                  <User className="h-5 w-5 mr-2 text-fir-blue-medium mt-0.5" />
-                  <div>
-                    <p className="font-medium">Name</p>
-                    <p className="text-gray-700">{fir.complainantName}</p>
-                  </div>
+              <h3 className="text-lg font-medium mb-3 flex items-center">
+                <User className="h-5 w-5 mr-2 text-fir-blue-medium" />
+                Victim & Complainant Information
+              </h3>
+              <div className="space-y-4">
+                <div className="px-4 py-3 bg-gray-50 rounded-md">
+                  <p className="text-sm font-medium text-gray-600">Victim Name</p>
+                  <p className="text-gray-700">{fir.victimName}</p>
                 </div>
-                <div className="flex items-start">
-                  <User className="h-5 w-5 mr-2 text-fir-blue-medium mt-0.5" />
-                  <div>
-                    <p className="font-medium">Contact</p>
-                    <p className="text-gray-700">{fir.complainantContact}</p>
-                  </div>
+                <div className="px-4 py-3 bg-gray-50 rounded-md">
+                  <p className="text-sm font-medium text-gray-600">Complainant Name</p>
+                  <p className="text-gray-700">{fir.complainantName}</p>
+                </div>
+                <div className="px-4 py-3 bg-gray-50 rounded-md">
+                  <p className="text-sm font-medium text-gray-600">Witness Name(s)</p>
+                  <p className="text-gray-700">{fir.witnessName}</p>
                 </div>
               </div>
             </div>
             
             <div>
-              <h3 className="text-lg font-medium mb-2">Incident Information</h3>
-              <div className="space-y-3">
-                <div className="flex items-start">
-                  <MapPin className="h-5 w-5 mr-2 text-fir-blue-medium mt-0.5" />
-                  <div>
-                    <p className="font-medium">Location</p>
-                    <p className="text-gray-700">{fir.location}</p>
-                  </div>
+              <h3 className="text-lg font-medium mb-3 flex items-center">
+                <Award className="h-5 w-5 mr-2 text-fir-blue-medium" />
+                Police Information
+              </h3>
+              <div className="space-y-4">
+                <div className="px-4 py-3 bg-gray-50 rounded-md">
+                  <p className="text-sm font-medium text-gray-600">Recorded By</p>
+                  <p className="text-gray-700">{fir.policeName}</p>
                 </div>
-                <div className="flex items-start">
-                  <Calendar className="h-5 w-5 mr-2 text-fir-blue-medium mt-0.5" />
-                  <div>
-                    <p className="font-medium">Date & Time</p>
-                    <p className="text-gray-700">{formatDate(fir.timestamp)}</p>
-                  </div>
+                <div className="px-4 py-3 bg-gray-50 rounded-md">
+                  <p className="text-sm font-medium text-gray-600">Police Batch ID</p>
+                  <p className="text-gray-700">{fir.policeBatchId}</p>
+                </div>
+                <div className="px-4 py-3 bg-gray-50 rounded-md">
+                  <p className="text-sm font-medium text-gray-600">Police Station</p>
+                  <p className="text-gray-700">{fir.policeStationName}</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <div>
-            <h3 className="text-lg font-medium mb-2">Suspect Information</h3>
-            <p className="text-gray-700 whitespace-pre-line">{fir.suspectDetails || "No suspect information provided."}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-lg font-medium mb-3 flex items-center">
+                <MapPin className="h-5 w-5 mr-2 text-fir-blue-medium" />
+                Location Information
+              </h3>
+              <div className="px-4 py-3 bg-gray-50 rounded-md">
+                <p className="text-gray-700">{fir.location}</p>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-medium mb-3 flex items-center">
+                <Calendar className="h-5 w-5 mr-2 text-fir-blue-medium" />
+                Date & Time Information
+              </h3>
+              <div className="px-4 py-3 bg-gray-50 rounded-md">
+                <p className="text-gray-700">{formatDate(fir.timestamp)}</p>
+              </div>
+            </div>
           </div>
           
           <Separator />

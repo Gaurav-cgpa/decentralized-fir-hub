@@ -9,9 +9,13 @@ export interface FIR {
   id: string;
   title: string;
   description: string;
+  victimName: string;
   complainantName: string;
-  complainantContact: string;
-  suspectDetails: string;
+  natureOfOffence: string;
+  policeName: string;
+  policeBatchId: string;
+  policeStationName: string;
+  witnessName: string;
   location: string;
   dateTime: string;
   status: 'pending' | 'investigating' | 'closed';
@@ -27,9 +31,13 @@ class BlockchainService {
       id: 'FIR-2023-001',
       title: 'Stolen Vehicle Report',
       description: 'My car was stolen from the shopping mall parking lot',
+      victimName: 'John Doe',
       complainantName: 'John Doe',
-      complainantContact: 'john.doe@example.com',
-      suspectDetails: 'Unknown',
+      natureOfOffence: 'Theft',
+      policeName: 'Officer James Wilson',
+      policeBatchId: 'PB-2345',
+      policeStationName: 'Central Police Station',
+      witnessName: 'Sarah Johnson',
       location: 'Central Mall, New Delhi',
       dateTime: '2023-10-15T14:30',
       status: 'investigating',
@@ -42,9 +50,13 @@ class BlockchainService {
       id: 'FIR-2023-002',
       title: 'Apartment Break-in',
       description: 'My apartment was broken into while I was at work',
+      victimName: 'Jane Smith',
       complainantName: 'Jane Smith',
-      complainantContact: 'jane.smith@example.com',
-      suspectDetails: 'Medium height man with a black jacket',
+      natureOfOffence: 'Burglary',
+      policeName: 'Officer Robert Chen',
+      policeBatchId: 'PB-3456',
+      policeStationName: 'West District Police Station',
+      witnessName: 'Mark Thompson',
       location: 'Green Heights, Mumbai',
       dateTime: '2023-11-02T08:15',
       status: 'pending',
@@ -57,9 +69,13 @@ class BlockchainService {
       id: 'FIR-2023-003',
       title: 'Mobile Phone Snatching',
       description: 'My phone was snatched by a person on motorcycle',
+      victimName: 'Raj Kumar',
       complainantName: 'Raj Kumar',
-      complainantContact: 'raj.kumar@example.com',
-      suspectDetails: 'Two men on a black motorcycle',
+      natureOfOffence: 'Robbery',
+      policeName: 'Officer Priya Singh',
+      policeBatchId: 'PB-4567',
+      policeStationName: 'South Zone Police Station',
+      witnessName: 'Anand Verma',
       location: 'MG Road, Bangalore',
       dateTime: '2023-11-10T19:45',
       status: 'investigating',

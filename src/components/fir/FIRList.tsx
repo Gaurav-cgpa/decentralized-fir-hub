@@ -4,10 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { blockchainService, FIR } from '@/services/blockchainService';
 import { useNavigate } from 'react-router-dom';
-import { Search, MapPin, Calendar, FileCheck, Loader2 } from 'lucide-react';
+import { Search, MapPin, Calendar, FileCheck, Loader2, User, Award, FileText } from 'lucide-react';
 
 const FIRList = () => {
   const [firs, setFirs] = useState<FIR[]>([]);
@@ -189,7 +188,21 @@ const FIRList = () => {
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
                     {fir.description}
                   </p>
-                  <div className="flex flex-wrap gap-y-2 text-xs text-muted-foreground">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs text-muted-foreground mt-2 border-t pt-2">
+                    <div className="flex items-center">
+                      <User className="h-3.5 w-3.5 mr-1" />
+                      Victim: {fir.victimName}
+                    </div>
+                    <div className="flex items-center">
+                      <Award className="h-3.5 w-3.5 mr-1" />
+                      Station: {fir.policeStationName}
+                    </div>
+                    <div className="flex items-center">
+                      <FileText className="h-3.5 w-3.5 mr-1" />
+                      {fir.natureOfOffence}
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-y-2 text-xs text-muted-foreground mt-2">
                     <div className="flex items-center mr-4">
                       <MapPin className="h-3.5 w-3.5 mr-1" />
                       {fir.location}
