@@ -1,7 +1,7 @@
 
 export const MONGODB_CONFIG = {
   // Your MongoDB connection string
-  url: 'mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@your-cluster-url.mongodb.net/your-database-name?retryWrites=true&w=majority'
+  url: 'mongodb+srv://gspatil2212:0IbFmJX9QfnFWNru@cluster0.gqxeump.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 };
 
 // IMPORTANT SECURITY NOTE:
