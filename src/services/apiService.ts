@@ -1,13 +1,14 @@
+
 import { toast } from '@/components/ui/use-toast';
 import { FIR, Evidence } from '@/services/blockchainService';
-import { MONGODB_CONFIG } from '@/config/mongodb';
+import { MONGODB_CONFIG, MONGODB_STATUS } from '@/config/mongodb';
 
 // This is a frontend-friendly API service using the Fetch API
-// It would be used to communicate with a backend server that handles MongoDB operations
+// It communicates with our backend server that handles MongoDB operations
 
 class ApiService {
-  private apiUrl = 'https://your-backend-api.com'; // Replace with your actual backend API URL
-  private mockData = false; // Changed from true to false to use MongoDB
+  private apiUrl = MONGODB_STATUS.backendUrl; // Using the backend URL from our config
+  private mockData = false; // We're using real MongoDB now
   private mongoDbUrl = MONGODB_CONFIG.url;
 
   // Constructor to initialize with MongoDB config
@@ -15,6 +16,7 @@ class ApiService {
     console.log('ApiService initialized with MongoDB URL pattern:', 
       this.mongoDbUrl.replace(/\/\/(.+?)@/, '//****@')); // Logs URL with credentials hidden
     console.log('Using MongoDB connection:', this.mockData ? 'No (using mock data)' : 'Yes');
+    console.log('Backend API URL:', this.apiUrl);
   }
 
   // Helper method for making API requests
@@ -61,6 +63,7 @@ class ApiService {
         url += `?${searchParams.toString()}`;
       }
       
+      console.log(`Making API request to: ${url}`);
       const response = await fetch(url, {
         ...options,
         headers: {
@@ -70,7 +73,8 @@ class ApiService {
       });
       
       if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
+        const errorText = await response.text();
+        throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
       }
       
       return await response.json();

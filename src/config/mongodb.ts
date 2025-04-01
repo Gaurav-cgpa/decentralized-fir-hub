@@ -12,8 +12,8 @@ export const MONGODB_CONFIG = {
 // 3. Consider using Supabase or another backend service for secure database access
 
 export const MONGODB_STATUS = {
-  isBackendConfigured: false, // Set this to true when you have a working backend
+  isBackendConfigured: true, // Set to true since we're now configuring a backend
+  backendUrl: "http://localhost:3001", // The URL where our backend will be running
   backendMissingMessage: "MongoDB integration requires a backend server. " +
-    "The app is currently not sending data to MongoDB because there's no backend server configured. " +
-    "Please set up a backend API and update the 'apiUrl' in apiService.ts."
+    "Please ensure the backend server is running at " + "http://localhost:3001"
 };
