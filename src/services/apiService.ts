@@ -1,4 +1,3 @@
-
 import { toast } from '@/components/ui/use-toast';
 import { FIR, Evidence } from '@/services/blockchainService';
 import { MONGODB_CONFIG } from '@/config/mongodb';
@@ -8,13 +7,14 @@ import { MONGODB_CONFIG } from '@/config/mongodb';
 
 class ApiService {
   private apiUrl = 'https://your-backend-api.com'; // Replace with your actual backend API URL
-  private mockData = true; // Set to false when you have a real backend
+  private mockData = false; // Changed from true to false to use MongoDB
   private mongoDbUrl = MONGODB_CONFIG.url;
 
   // Constructor to initialize with MongoDB config
   constructor() {
     console.log('ApiService initialized with MongoDB URL pattern:', 
       this.mongoDbUrl.replace(/\/\/(.+?)@/, '//****@')); // Logs URL with credentials hidden
+    console.log('Using MongoDB connection:', this.mockData ? 'No (using mock data)' : 'Yes');
   }
 
   // Helper method for making API requests

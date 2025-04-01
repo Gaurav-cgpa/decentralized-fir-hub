@@ -10,3 +10,10 @@ export const MONGODB_CONFIG = {
 // 1. Use a backend server to handle database connections
 // 2. Use environment variables on the server side
 // 3. Consider using Supabase or another backend service for secure database access
+
+export const MONGODB_STATUS = {
+  isBackendConfigured: false, // Set this to true when you have a working backend
+  backendMissingMessage: "MongoDB integration requires a backend server. " +
+    "The app is currently not sending data to MongoDB because there's no backend server configured. " +
+    "Please set up a backend API and update the 'apiUrl' in apiService.ts."
+};
