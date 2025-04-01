@@ -10,7 +10,7 @@ class ApiService {
   private mockData = true; // Set to false when you have a real backend
 
   // Helper method for making API requests
-  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  private async request<T>(endpoint: string, options: RequestInit = {}, queryParams?: Record<string, any>): Promise<T> {
     if (this.mockData) {
       // If in mock mode, delegate to the existing blockchainService
       // We'll import it dynamically to avoid circular dependencies
@@ -23,8 +23,7 @@ class ApiService {
       const body = options.body ? JSON.parse(options.body as string) : undefined;
       
       if (endpoint === 'firs' && method === 'GET') {
-        const filters = options.params;
-        return blockchainService.getFIRs(filters) as unknown as T;
+        return blockchainService.getFIRs(queryParams) as unknown as T;
       }
       else if (endpoint.startsWith('firs/') && method === 'GET') {
         const id = endpoint.split('/')[1];
@@ -41,7 +40,19 @@ class ApiService {
     }
     
     try {
-      const url = `${this.apiUrl}/${endpoint}`;
+      let url = `${this.apiUrl}/${endpoint}`;
+      
+      // Add query parameters if provided
+      if (queryParams && Object.keys(queryParams).length > 0) {
+        const searchParams = new URLSearchParams();
+        Object.entries(queryParams).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            searchParams.append(key, String(value));
+          }
+        });
+        url += `?${searchParams.toString()}`;
+      }
+      
       const response = await fetch(url, {
         ...options,
         headers: {
@@ -74,10 +85,7 @@ class ApiService {
     policeName?: string;
     status?: string;
   }): Promise<FIR[]> {
-    return this.request<FIR[]>('firs', { 
-      method: 'GET',
-      params: filters
-    });
+    return this.request<FIR[]>('firs', { method: 'GET' }, filters);
   }
 
   async getFIRById(id: string): Promise<FIR | null> {
