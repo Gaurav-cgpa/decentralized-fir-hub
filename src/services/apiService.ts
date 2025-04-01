@@ -1,6 +1,7 @@
 
 import { toast } from '@/components/ui/use-toast';
 import { FIR, Evidence } from '@/services/blockchainService';
+import { MONGODB_CONFIG } from '@/config/mongodb';
 
 // This is a frontend-friendly API service using the Fetch API
 // It would be used to communicate with a backend server that handles MongoDB operations
@@ -8,6 +9,13 @@ import { FIR, Evidence } from '@/services/blockchainService';
 class ApiService {
   private apiUrl = 'https://your-backend-api.com'; // Replace with your actual backend API URL
   private mockData = true; // Set to false when you have a real backend
+  private mongoDbUrl = MONGODB_CONFIG.url;
+
+  // Constructor to initialize with MongoDB config
+  constructor() {
+    console.log('ApiService initialized with MongoDB URL pattern:', 
+      this.mongoDbUrl.replace(/\/\/(.+?)@/, '//****@')); // Logs URL with credentials hidden
+  }
 
   // Helper method for making API requests
   private async request<T>(endpoint: string, options: RequestInit = {}, queryParams?: Record<string, any>): Promise<T> {
